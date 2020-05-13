@@ -49,3 +49,4 @@ Dependencies for this to work:
 1. Axios
 2. Browerify to bundle require with HTML to call Axios.
 3. ENABLE CORS Plugin in chrome - Cross Domain - CORS - Offered by: Mai Tan (https://chrome.google.com/webstore/detail/cross-domain-cors/mjhpgnbimicffchbodmgfnemoghjakai)
+4. Autocomplete within HTML - https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
