@@ -194,14 +194,15 @@ const config = {headers: {
 }};
 
 document.getElementById("myinput").addEventListener("input", (event)=>{
-    var x = document.getElementById("myinput").value;
-    console.log(x);
+    var divclass = document.getElementsByClassName("autocomplete");
+    var x = document.getElementById("myinput");
+    console.log(x.value);
 
     const data = JSON.stringify({
         "_source": "desc", 
         "suggest": {
             "name-sugest": {
-              "prefix": x,
+              "prefix": x.value.toString(),
               "completion": {
                 "field": "desc"
               }
@@ -211,7 +212,12 @@ document.getElementById("myinput").addEventListener("input", (event)=>{
     
     axios.post('http://localhost:9200/karan/_search', data, config).then((onvalue)=>{
         if(onvalue){
+                cleardivs();
                 for(results in onvalue.data.suggest['name-sugest'][0].options){
+                    newDiv = document.createElement("div");
+                    newDiv.setAttribute("class", "inserteddiv");
+                    x.parentNode.appendChild(newDiv);
+                    newDiv.innerHTML = onvalue.data.suggest['name-sugest'][0].options[results]._source.desc.input.toString();
                     console.log(onvalue.data.suggest['name-sugest'][0].options[results]._source.desc.input);
                 }
         }
@@ -220,6 +226,13 @@ document.getElementById("myinput").addEventListener("input", (event)=>{
     });
 });
 
+function cleardivs(){
+    divs = document.getElementsByClassName("inserteddiv");
+    var inputform = document.getElementById("myinput");
+    for(var i = 0; i < divs.length;){
+        inputform.parentNode.removeChild(divs[0]);
+    }
+}
 },{"axios":3}],3:[function(require,module,exports){
 module.exports = require('./lib/axios');
 },{"./lib/axios":5}],4:[function(require,module,exports){
